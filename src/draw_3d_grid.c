@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:45:24 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/17 21:04:10 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:28:24 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,43 +30,43 @@ void	draw_grid(mlx_image_t *img)
 
     // Piirretään vaakasuorat viivat
 	y = 0;
-	int i = 0;
-	while(i++ < 5)
+	while (y <= HEIGHT)
 	{
         // Lasketaan korkeudet z-arvoina
         z0 = get_z_value(0, y);
         z1 = get_z_value(WIDTH, y);
 
-        printf("Drawing horizontal line at y = %d with z0 = %d, z1 = %d\n", y, z0, z1);
-
 		points.x0 = 0;
-		points.y0 = y - z0;  // Vähennetään z-arvo y-koordinaatista
+		points.y0 = y - z0;  // Muutetaan y-koordinaattia z-arvon perusteella
 		points.x1 = WIDTH;
-		points.y1 = y - z1;  // Vähennetään z-arvo y-koordinaatista
+		points.y1 = y - z1;  // Muutetaan y-koordinaattia z-arvon perusteella
 
-        printf("Line coordinates: x0 = %d, y0 = %d, x1 = %d, y1 = %d\n", points.x0, points.y0, points.x1, points.y1);
-		draw_line(img, points, 0xFF0000FF); // Piirretään vaakasuora viiva
+        printf("Drawing horizontal line: x0 = %d, y0 = %d, x1 = %d, y1 = %d\n", points.x0, points.y0, points.x1, points.y1); // Debug
+
+		// Piirretään viiva vaakasuunnassa
+		draw_line(img, points, 0xFF0000FF);
+		
 		y += GRID_SIZE;
 	}
 
     // Piirretään pystysuorat viivat
 	x = 0;
-	i = 0;
-	while (i++ < 5)
+	while (x <= WIDTH)
 	{
         // Lasketaan korkeudet z-arvoina
         z0 = get_z_value(x, 0);
         z1 = get_z_value(x, HEIGHT);
 
-        printf("Drawing vertical line at x = %d with z0 = %d, z1 = %d\n", x, z0, z1);
-
 		points.x0 = x;
-		points.y0 = 0 - z0;  // Vähennetään z-arvo y-koordinaatista
+		points.y0 = 0 - z0;  // Muutetaan y-koordinaattia z-arvon perusteella
 		points.x1 = x;
-		points.y1 = HEIGHT - z1;  // Vähennetään z-arvo y-koordinaatista
+		points.y1 = HEIGHT - z1;  // Muutetaan y-koordinaattia z-arvon perusteella
 
-        printf("Line coordinates: x0 = %d, y0 = %d, x1 = %d, y1 = %d\n", points.x0, points.y0, points.x1, points.y1);
-		draw_line(img, points, 0xFF0000FF); // Piirretään pystysuora viiva
+        printf("Drawing vertical line: x0 = %d, y0 = %d, x1 = %d, y1 = %d\n", points.x0, points.y0, points.x1, points.y1); // Debug
+
+		// Piirretään viiva pystysuunnassa
+		draw_line(img, points, 0xFF0000FF);
+		
 		x += GRID_SIZE;
 	}
 }

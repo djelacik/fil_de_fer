@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_grid.c                                        :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:15:48 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/17 16:03:21 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:54:55 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ void	initialize_draw(t_draw *draw, t_points *points)
 		draw->sy = 1;
 	else
 		draw->sy = -1;
-	draw->err = draw->dx + draw->dy; 
+	if (draw->dx > draw->dy)
+		draw->err = draw->dx / 2;
+	else
+		draw->err = -draw->dy / 2;
 }
