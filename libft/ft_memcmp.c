@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/18 15:46:25 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:37:20 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	mlx_t	*mlx;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	i = 0;
-	while (i < map_data->height)
-	{
-		free(map_data->map[i]);
+	while (i < n && *(str1 + i) == *(str2 + i))
 		i++;
-	}
-	free(map_data->map);
-	free(map_data);
+	if (i == n)
+		return (0);
+	return (*(str1 + i) - *(str2 + i));
 }

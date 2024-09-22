@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:45:24 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/17 22:28:24 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/20 01:57:44 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,52 +21,79 @@ static int get_z_value(int x, int y)
     return z;
 }
 
+static void	apply_isometric(int *x, int *y, int z)
+{
+	int previous_x;
+	int previous_y;
+
+	previous_x = *x;
+	previous_y = *y;
+
+	// Isometrinen projektio
+	*x = (previous_x - previous_y) * cos(0.6); // 30 astetta radiaaneina
+	*y = (previous_x + previous_y) * sin(0.6) - z;
+
+	// Skaalataan ja siirretään ruudukko keskelle
+	*x = *x / 4 * 2 + WIDTH / 2;  // Skaalaus ja offset x:lle
+	*y = *y / 4 * 2 + HEIGHT / 4; // Skaalaus ja offset y:lle
+}
+
 void	draw_grid(mlx_image_t *img)
 {
 	t_points	points;
 	int			x;
 	int			y;
-    int         z0, z1; // Z-arvot (korkeudet)
+	int			z0, z1;
 
-    // Piirretään vaakasuorat viivat
+	// Piirretään vaakasuorat viivat
 	y = 0;
 	while (y <= HEIGHT)
 	{
-        // Lasketaan korkeudet z-arvoina
-        z0 = get_z_value(0, y);
-        z1 = get_z_value(WIDTH, y);
+		x = 0;
+		while (x + GRID_SIZE <= WIDTH)
+		{
+			z0 = get_z_value(x, y);
+			z1 = get_z_value(x + GRID_SIZE, y);
 
-		points.x0 = 0;
-		points.y0 = y - z0;  // Muutetaan y-koordinaattia z-arvon perusteella
-		points.x1 = WIDTH;
-		points.y1 = y - z1;  // Muutetaan y-koordinaattia z-arvon perusteella
+			// Alkuperäiset pisteet
+			points.x0 = x;
+			points.y0 = y;
+			points.x1 = x + GRID_SIZE;
+			points.y1 = y;
 
-        printf("Drawing horizontal line: x0 = %d, y0 = %d, x1 = %d, y1 = %d\n", points.x0, points.y0, points.x1, points.y1); // Debug
+			// Muutetaan isometriseksi
+			apply_isometric(&points.x0, &points.y0, z0);
+			apply_isometric(&points.x1, &points.y1, z1);
 
-		// Piirretään viiva vaakasuunnassa
-		draw_line(img, points, 0xFF0000FF);
-		
+			draw_line(img, points, 0xFF0000FF); // Piirretään viiva
+			x += GRID_SIZE;
+		}
 		y += GRID_SIZE;
 	}
 
-    // Piirretään pystysuorat viivat
+	// Piirretään pystysuorat viivat
 	x = 0;
 	while (x <= WIDTH)
 	{
-        // Lasketaan korkeudet z-arvoina
-        z0 = get_z_value(x, 0);
-        z1 = get_z_value(x, HEIGHT);
+		y = 0;
+		while (y + GRID_SIZE <= HEIGHT)
+		{
+			z0 = get_z_value(x, y);
+			z1 = get_z_value(x, y + GRID_SIZE);
 
-		points.x0 = x;
-		points.y0 = 0 - z0;  // Muutetaan y-koordinaattia z-arvon perusteella
-		points.x1 = x;
-		points.y1 = HEIGHT - z1;  // Muutetaan y-koordinaattia z-arvon perusteella
+			// Alkuperäiset pisteet
+			points.x0 = x;
+			points.y0 = y;
+			points.x1 = x;
+			points.y1 = y + GRID_SIZE;
 
-        printf("Drawing vertical line: x0 = %d, y0 = %d, x1 = %d, y1 = %d\n", points.x0, points.y0, points.x1, points.y1); // Debug
+			// Muutetaan isometriseksi
+			apply_isometric(&points.x0, &points.y0, z0);
+			apply_isometric(&points.x1, &points.y1, z1);
 
-		// Piirretään viiva pystysuunnassa
-		draw_line(img, points, 0xFF0000FF);
-		
+			draw_line(img, points, 0xFF0000FF); // Piirretään viiva
+			y += GRID_SIZE;
+		}
 		x += GRID_SIZE;
 	}
 }

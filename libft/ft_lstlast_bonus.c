@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/28 20:13:08 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:37:00 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+t_list	*ft_lstlast(t_list *lst)
 {
-	mlx_t	*mlx;
-
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_data->height)
-	{
-		free(map_data->map[i]);
-		i++;
-	}
-	free(map_data->map);
-	free(map_data);
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

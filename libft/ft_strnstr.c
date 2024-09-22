@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/18 16:12:06 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:38:49 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	mlx_t	*mlx;
+	size_t	i;
+	size_t	j;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
+	if (!*needle)
+		return ((char *)haystack);
 	i = 0;
-	while (i < map_data->height)
+	while (haystack[i] && i < len)
 	{
-		free(map_data->map[i]);
+		j = 0;
+		while (needle[j] && haystack[i + j] == needle[j] && i + j < len)
+		{
+			j++;
+		}
+		if (!needle[j])
+			return ((char *)&haystack[i]);
 		i++;
 	}
-	free(map_data->map);
-	free(map_data);
+	return (NULL);
 }

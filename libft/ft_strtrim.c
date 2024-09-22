@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/19 12:44:24 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:38:58 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	mlx_t	*mlx;
+	size_t	i;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_data->height)
-	{
-		free(map_data->map[i]);
-		i++;
-	}
-	free(map_data->map);
-	free(map_data);
+	if (!s1 || !set)
+		return (0);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	i = ft_strlen(s1);
+	while (i && ft_strchr(set, s1[i]))
+		i--;
+	return (ft_substr(s1, 0, i + 1));
 }

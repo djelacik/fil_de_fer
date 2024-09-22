@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/17 10:22:42 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:37:26 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	mlx_t	*mlx;
+	size_t				i;
+	unsigned char		*d;
+	const unsigned char	*s;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
+	d = dst;
+	s = src;
 	i = 0;
-	while (i < map_data->height)
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
 	{
-		free(map_data->map[i]);
+		d[i] = s[i];
 		i++;
 	}
-	free(map_data->map);
-	free(map_data);
+	return (dst);
 }

@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/16 14:53:27 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:37:35 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	mlx_t	*mlx;
+	unsigned int	i;
+	unsigned char	*p;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
+	p = (unsigned char *)b;
 	i = 0;
-	while (i < map_data->height)
+	while (i < len)
 	{
-		free(map_data->map[i]);
+		p[i] = c;
 		i++;
 	}
-	free(map_data->map);
-	free(map_data);
+	return (b);
 }

@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/18 10:14:47 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:38:54 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+char	*ft_strrchr(const char *s, int c)
 {
-	mlx_t	*mlx;
+	char	*lst;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_data->height)
+	lst = NULL;
+	while (*s)
 	{
-		free(map_data->map[i]);
-		i++;
+		if (*s == (char)c)
+			lst = (char *)s;
+		s++;
 	}
-	free(map_data->map);
-	free(map_data);
+	if (*s == (char)c)
+		return ((char *)s);
+	return (lst);
 }

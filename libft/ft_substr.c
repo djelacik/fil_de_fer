@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/19 10:45:52 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:39:05 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	mlx_t	*mlx;
+	char	*buffer;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_data->height)
-	{
-		free(map_data->map[i]);
-		i++;
-	}
-	free(map_data->map);
-	free(map_data);
+	if (!s || !*s)
+		return (ft_strdup(""));
+	if (!len || start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (start + len > ft_strlen(s))
+		len = ft_strlen(s) - start;
+	buffer = ft_calloc(len + 1, sizeof(char));
+	if (!buffer)
+		return (NULL);
+	ft_strlcpy(buffer, &s[start], len + 1);
+	return (buffer);
 }

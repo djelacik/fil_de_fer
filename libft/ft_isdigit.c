@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/16 14:39:45 by djelacik          #+#    #+#             */
+/*   Updated: 2024/09/04 12:54:34 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-
-
-void	close_window(mlx_key_data_t keydata, void *param)
+int	str_is_digit(char *str)
 {
-	mlx_t	*mlx;
-
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_data->height)
+	while (*str)
 	{
-		free(map_data->map[i]);
-		i++;
+		if (*str == '-' || *str == '+')
+			str++;
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
 	}
-	free(map_data->map);
-	free(map_data);
+	return (1);
 }

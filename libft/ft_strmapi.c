@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/23 17:28:31 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/03 10:38:42 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	mlx_t	*mlx;
+	char			*buffer;
+	unsigned int	i;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
+	if (!s || !f)
+		return (0);
+	buffer = ft_strdup(s);
+	if (!buffer)
+		return (NULL);
 	i = 0;
-	while (i < map_data->height)
+	while (buffer[i])
 	{
-		free(map_data->map[i]);
+		buffer[i] = f(i, s[i]);
 		i++;
 	}
-	free(map_data->map);
-	free(map_data);
+	return (buffer);
 }

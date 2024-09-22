@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:04 by djelacik         ###   ########.fr       */
+/*   Created: 2024/04/18 17:57:35 by djelacik          #+#    #+#             */
+/*   Updated: 2024/05/07 13:21:39 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "libft.h"
 
-
-void	close_window(mlx_key_data_t keydata, void *param)
+void	*ft_calloc(size_t count, size_t size)
 {
-	mlx_t	*mlx;
+	void	*buffer;
+	size_t	total;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(mlx);
-}
-
-void	free_map_memory(t_map *map_data)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_data->height)
-	{
-		free(map_data->map[i]);
-		i++;
-	}
-	free(map_data->map);
-	free(map_data);
+	if (count != 0 && size > 18446744073709551615ULL / count)
+		return (NULL);
+	total = count * size;
+	buffer = malloc(total);
+	if (!buffer)
+		return (NULL);
+	ft_bzero(buffer, total);
+	return (buffer);
 }
