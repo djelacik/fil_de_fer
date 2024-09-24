@@ -6,11 +6,11 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 02:04:18 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/22 22:11:05 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:06:03 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 static int	get_width(char *line)
 {
@@ -40,7 +40,7 @@ static void	save_height_and_width(t_map *map, const char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (NULL);
+		return ;
 	map->height = 0;
 	line = get_next_line(fd);
 	map->width = get_width(line);
@@ -85,7 +85,7 @@ static int fill_row(int *row, char *line)
 	{
 		if (line[i] != ' ' && (i == 0 || line[i - 1] == ' '))
 		{
-		row[j++] = ft_atoi(line[i]);
+		row[j++] = ft_atoi(line + i);
 		while (line[i] && line[i] != ' ')
 			i++;
 		}
@@ -95,17 +95,24 @@ static int fill_row(int *row, char *line)
 	return (1);
 }
 
-void	save_map(const char *filename)
+t_map	*save_map(const char *filename)
 {
 	int		fd;
 	int		i;
 	char	*line;
 	t_map	*map;
 	
-	ft_bzero(&map, sizeof(t_map));
-	fd = open(filename, O_RDONLY);
-	if (fd < 0 || get_next_line(fd) == NULL)
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
 		return (NULL);
+	ft_bzero(map, sizeof(t_map));
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error opening file");
+		fflush(stdout);
+		return (NULL);
+	}
 	save_height_and_width(map, filename);
 	if (!allocate_map(map))
 		return (NULL);
@@ -115,7 +122,8 @@ void	save_map(const char *filename)
 	{
 		fill_row(map->map[i++], line);
 		free(line);
-		get_next_line(fd);
+		line = get_next_line(fd);
 	}
 	close(fd);
+	return (map);
 }
