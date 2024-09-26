@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:49:21 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/24 16:09:36 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:37:48 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	draw_horizontal_line(mlx_image_t *img, int x, int y, t_map *map)
 	end.x = x + 1;
 	end.y = y;
 	init_points(&points, start, end, map);
-	draw_line(img, points, map, 0xFFFFFF);
+	draw_line(img, points, 0xFFFFFF);
 }
 
 static void	draw_vertical_line(mlx_image_t *img, int x, int y, t_map *map)
@@ -37,7 +37,7 @@ static void	draw_vertical_line(mlx_image_t *img, int x, int y, t_map *map)
 	end.x = x;
 	end.y = y + 1;
 	init_points(&points, start, end, map);
-	draw_line(img, points, map, 0xFFFFFF);
+	draw_line(img, points, 0xFFFFFF);
 }
 
 void	draw_map(mlx_image_t *img, t_map *map)
@@ -52,9 +52,15 @@ void	draw_map(mlx_image_t *img, t_map *map)
 		while (x < map->width)
 		{
 			if (x < map->width - 1)
+			{
+				printf("Drawing horizontal line at (%d, %d)\n", x, y);	
 				draw_horizontal_line(img, x, y, map);
+			}
 			if (y < map->height - 1)
+			{
+				printf("Drawing vertical line at (%d, %d)\n", x, y);
 				draw_vertical_line(img, x, y, map);
+			}
 			x++;
 		}
 		y++;

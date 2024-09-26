@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/24 20:53:10 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:41:40 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #define WIDTH 800
 #define HEIGHT 600
 #define GRID_SIZE 40
-#define SCALE 1
+#define SCALE 20
 
 typedef struct	s_draw
 {
@@ -61,11 +61,11 @@ typedef struct s_map
 void	close_window(mlx_key_data_t keydata, void* param);
 void	free_map_memory(t_map *map_data);
 int		apply_height(int y, int z);
-void	apply_isometrics(int *x, int *y, int z, t_map *map);
+void	apply_isometrics(t_point *point);
 
 void	initialize_draw(t_draw *draw, t_points *points);
 void	init_points(t_points *points, t_point start, t_point end, t_map *map);
-void	draw_line(mlx_image_t *img, t_points points, t_map *map, uint32_t color);
+void	draw_line(mlx_image_t *img, t_points points, uint32_t color);
 
 t_map	*save_map(const char *filename);
 void	draw_map(mlx_image_t *img, t_map *map);
