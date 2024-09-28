@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:04:23 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/25 19:48:23 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:58:49 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	scale_and_offset(t_points *points)
 	offset_x = WIDTH / 2;
 	offset_y = HEIGHT / 2;
 
-	printf("Before scaling: Start: (%d, %d), End: (%d, %d)\n",
+	printf("Before scaling: Start: (%f, %f), End: (%f, %f)\n",
            points->start.x, points->start.y, points->end.x, points->end.y);
 
 	points->start.x = points->start.x * SCALE + offset_x;
@@ -28,7 +28,7 @@ static void	scale_and_offset(t_points *points)
 	points->end.x = points->end.x * SCALE + offset_x;
 	points->end.y = points->end.y * SCALE + offset_y;
 
-	printf("After scaling: Start: (%d, %d), End: (%d, %d)\n",
+	printf("After scaling: Start: (%f, %f), End: (%f, %f)\n",
 	       points->start.x, points->start.y, points->end.x, points->end.y);
 }
 

@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/25 19:41:40 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:01:30 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct	s_draw
 
 typedef struct	s_point
 {
-	int			x;
-	int			y;
-	int			z;
+	double			x;
+	double			y;
+	double			z;
 }	t_point;
 
 typedef struct	s_points
