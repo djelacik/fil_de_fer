@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:49:21 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/25 18:37:48 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:12:43 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	draw_map(mlx_image_t *img, t_map *map)
 		{
 			if (x < map->width - 1)
 			{
-				printf("Drawing horizontal line at (%d, %d)\n", x, y);	
+				//printf("Drawing horizontal line at (%d, %d)\n", x, y);	
 				draw_horizontal_line(img, x, y, map);
 			}
 			if (y < map->height - 1)
 			{
-				printf("Drawing vertical line at (%d, %d)\n", x, y);
+				//printf("Drawing vertical line at (%d, %d)\n", x, y);
 				draw_vertical_line(img, x, y, map);
 			}
 			x++;

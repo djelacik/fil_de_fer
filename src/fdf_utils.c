@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/28 12:20:24 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:13:12 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	free_map_memory(t_map *map_data)
 
 int	apply_height(int y, int z)
 {
-	return (y - (z * 0.5));
+	return (y - (z));
 }
 
 void	apply_isometrics(t_point *point)
@@ -49,5 +49,6 @@ void	apply_isometrics(t_point *point)
 	prev_x = point->x;
 	prev_y = point->y;
 	point->x = (prev_x - prev_y) * cos(0.523599);
-	point->y = (prev_x + prev_y) * sin(0.523599) - point->z * 0.5;
+	point->y = (prev_x + prev_y) * sin(0.523599) - point->z;
+
 }
