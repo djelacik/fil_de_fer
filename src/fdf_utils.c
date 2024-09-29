@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/28 13:13:12 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/29 13:40:56 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	apply_isometrics(t_point *point)
 
 	prev_x = point->x;
 	prev_y = point->y;
-	point->x = (prev_x - prev_y) * cos(0.523599);
-	point->y = (prev_x + prev_y) * sin(0.523599) - point->z;
+	point->x = (prev_x - prev_y) * cos(0.7);
+	point->y = (prev_x + prev_y) * sin(0.7) - point->z;
 
 }

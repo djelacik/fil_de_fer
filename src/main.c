@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:02:07 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/24 19:58:37 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:55:23 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int	main(int argc, char **argv)
 		printf("Error saving the map\n");
 		return (1);
 	}
+	find_max_min_z(map);
+	save_map_size(map);
+	map_scale(map);
+	
 	mlx = mlx_init(WIDTH, HEIGHT, "Test_window", true);
 	if (!mlx)
 	{

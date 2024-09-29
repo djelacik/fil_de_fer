@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:49:21 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/28 14:12:43 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:06:27 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	draw_horizontal_line(mlx_image_t *img, int x, int y, t_map *map)
 	end.x = x + 1;
 	end.y = y;
 	init_points(&points, start, end, map);
-	draw_line(img, points, 0xFFFFFF);
+	draw_line(img, points, 0xFFFFFF, map);
 }
 
 static void	draw_vertical_line(mlx_image_t *img, int x, int y, t_map *map)
@@ -37,7 +37,7 @@ static void	draw_vertical_line(mlx_image_t *img, int x, int y, t_map *map)
 	end.x = x;
 	end.y = y + 1;
 	init_points(&points, start, end, map);
-	draw_line(img, points, 0xFFFFFF);
+	draw_line(img, points, 0xFFFFFF, map);
 }
 
 void	draw_map(mlx_image_t *img, t_map *map)

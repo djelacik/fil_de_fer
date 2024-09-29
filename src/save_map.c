@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 02:04:18 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/24 13:06:03 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:21:55 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,7 @@ t_map	*save_map(const char *filename)
 	ft_bzero(map, sizeof(t_map));
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Error opening file");
-		fflush(stdout);
 		return (NULL);
-	}
 	save_height_and_width(map, filename);
 	if (!allocate_map(map))
 		return (NULL);
