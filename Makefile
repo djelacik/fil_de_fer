@@ -6,7 +6,7 @@
 #    By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 19:04:37 by djelacik          #+#    #+#              #
-#    Updated: 2024/09/29 13:26:54 by djelacik         ###   ########.fr        #
+#    Updated: 2024/10/02 10:44:01 by djelacik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ src/fdf_utils.c \
 src/save_map.c \
 src/draw_map.c \
 src/scale.c \
+src/colors.c \
 get_next_line/get_next_line.c \
 get_next_line/get_next_line_utils.c
 

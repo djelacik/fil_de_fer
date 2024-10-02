@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:04:23 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/29 16:03:54 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:14:10 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,20 @@ static void	scale_and_offset(t_map *map, t_points *points)
 	//        points->start.x, points->start.y, points->end.x, points->end.y);
 }
 
-static void	slope_less(mlx_image_t *img, t_points *points, t_draw *draw, uint32_t color)
+static void	slope_less(mlx_image_t *img, t_points *pts, t_draw *draw)
 {
-	int		p;
-	int		i;
-	double	x;
-	double	y;
+	int			p;
+	double		x;
+	double		y;
+	uint32_t	color;
 	
 	p = 2 * abs(draw->dy) - (draw->dx);
-	i = 0;
-	x = points->start.x;
-	y = points->start.y;
-	while (i++ < abs(draw->dx))
+	draw->i = 0;
+	x = pts->start.x;
+	y = pts->start.y;
+	while (draw->i++ < abs(draw->dx))
 	{
+		color = get_color(pts->s_color, pts->e_color, draw->i, abs(draw->dx));
 		if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 			mlx_put_pixel(img, x, y, color);
 		printf("Slope less: Drawing pixel at (%f, %f)\n", x, y);
@@ -61,19 +62,20 @@ static void	slope_less(mlx_image_t *img, t_points *points, t_draw *draw, uint32_
 	}
 }
 
-static void	slope_more(mlx_image_t *img, t_points *points, t_draw *draw, uint32_t color)
+static void	slope_more(mlx_image_t *img, t_points *pts, t_draw *draw)
 {
 	int		p;
-	int		i;
 	double	x;
 	double	y;
+	uint32_t	color;
 	
 	p = 2 * abs(draw->dx) - (draw->dy);
-	i = 0;
-	x = points->start.x;
-	y = points->start.y;
-	while (i++ < abs(draw->dy))
+	draw->i = 0;
+	x = pts->start.x;
+	y = pts->start.y;
+	while (draw->i++ < abs(draw->dy))
 	{
+		color = get_color(pts->s_color, pts->e_color, draw->i, abs(draw->dy));
 		if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 			mlx_put_pixel(img, x, y, color);
 		printf("Slope more: Drawing pixel at (%f, %f)\n", x, y);
@@ -88,15 +90,17 @@ static void	slope_more(mlx_image_t *img, t_points *points, t_draw *draw, uint32_
 	}
 }
 
-void	draw_line(mlx_image_t *img, t_points points, uint32_t color, t_map *map)
+void	draw_line(mlx_image_t *img, t_points points, t_map *map)
 {
 	t_draw	draw;
+	
 
 	scale_and_offset(map, &points);
 	initialize_draw(&draw, &points);
+	
 
 	if (abs(draw.dx) > abs(draw.dy))
-		slope_less(img, &points, &draw, color);
+		slope_less(img, &points, &draw);
 	else
-		slope_more(img, &points, &draw, color);
+		slope_more(img, &points, &draw);
 }

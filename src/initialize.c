@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:15:48 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/29 15:41:24 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:41:31 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ void	init_points(t_points *points, t_point start, t_point end, t_map *map)
 	points->end.x = end.x;
 	points->end.y = end.y;
 	points->end.z = map->map[(int)end.y][(int)end.x] / map->z_scale;
+	points->s_color = color_based_on_height(points->start.z, map);
+	points->e_color = color_based_on_height(points->end.z, map);
 
 	apply_isometrics(&points->start);
 	apply_isometrics(&points->end);
-	
-	// printf("After isometric: Start: (%f, %f), End: (%f, %f)\n",
-    //        points->start.x, points->start.y, points->end.x, points->end.y);
 }

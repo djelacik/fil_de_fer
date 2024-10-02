@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/29 15:57:09 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:42:47 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,31 @@ typedef struct	s_draw
 	int			sy;
 	int			err;
 	int			e2;
+	int			i;
 }	t_draw;
+
+typedef struct	s_color
+{
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+}	t_color;
 
 typedef struct	s_point
 {
 	double			x;
 	double			y;
 	double			z;
+	t_color			color;
 }	t_point;
 
 typedef struct	s_points
 {
 	t_point		start;
 	t_point		end;
+	t_color		s_color;
+	t_color		e_color;
 }	t_points;
 
 typedef struct s_map
@@ -63,19 +75,23 @@ typedef struct s_map
 	int			min_map_size;
 }	t_map;
 
-void	close_window(mlx_key_data_t keydata, void* param);
-void	free_map_memory(t_map *map_data);
-int		apply_height(int y, int z);
-void	apply_isometrics(t_point *point);
 
-void	initialize_draw(t_draw *draw, t_points *points);
-void	init_points(t_points *points, t_point start, t_point end, t_map *map);
-void	draw_line(mlx_image_t *img, t_points points, uint32_t color, t_map *map);
 
-t_map	*save_map(const char *filename);
-void	find_max_min_z(t_map *map);
-void	save_map_size(t_map *map);
-void	draw_map(mlx_image_t *img, t_map *map);
-void	map_scale(t_map *map);
+void		close_window(mlx_key_data_t keydata, void* param);
+void		free_map_memory(t_map *map_data);
+int			apply_height(int y, int z);
+void		apply_isometrics(t_point *point);
+
+void		initialize_draw(t_draw *draw, t_points *points);
+void		init_points(t_points *points, t_point start, t_point end, t_map *map);
+void		draw_line(mlx_image_t *img, t_points points, t_map *map);
+uint32_t	get_color(t_color start_color, t_color end_color, int i, double x);
+t_color		color_based_on_height(double z, t_map *map);
+
+t_map		*save_map(const char *filename);
+void		find_max_min_z(t_map *map);
+void		save_map_size(t_map *map);
+void		draw_map(mlx_image_t *img, t_map *map);
+void		map_scale(t_map *map);
 
 #endif
