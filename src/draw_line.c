@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:04:23 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/01 21:14:10 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:54:56 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	slope_less(mlx_image_t *img, t_points *pts, t_draw *draw)
 		color = get_color(pts->s_color, pts->e_color, draw->i, abs(draw->dx));
 		if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 			mlx_put_pixel(img, x, y, color);
-		printf("Slope less: Drawing pixel at (%f, %f)\n", x, y);
 		x += draw->sx;
 		if (p < 0)
 			p = p + 2 * abs(draw->dy);
@@ -78,7 +77,6 @@ static void	slope_more(mlx_image_t *img, t_points *pts, t_draw *draw)
 		color = get_color(pts->s_color, pts->e_color, draw->i, abs(draw->dy));
 		if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 			mlx_put_pixel(img, x, y, color);
-		printf("Slope more: Drawing pixel at (%f, %f)\n", x, y);
 		y += draw->sy;
 		if (p < 0)
 			p = p + 2 * abs(draw->dx);

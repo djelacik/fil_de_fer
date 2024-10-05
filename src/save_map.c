@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 02:04:18 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/29 10:21:55 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:47:36 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,43 @@ static int fill_row(int *row, char *line)
 	{
 		if (line[i] != ' ' && (i == 0 || line[i - 1] == ' '))
 		{
-		row[j++] = ft_atoi(line + i);
-		while (line[i] && line[i] != ' ')
-			i++;
+			row[j++] = ft_atoi(line + i);
+			while (line[i] && line[i] != ' ')
+				i++;
 		}
 		else
 			i++;
 	}
 	return (1);
 }
+
+// static int fill_row(t_point *row, char *line, t_map *map)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**split;
+// 	char	*color_str;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] != ' ' && (i == 0 || line[i - 1] == ' '))
+// 		{
+// 			split = ft_split(line + 1, ',');
+// 			row[j].z = ft_atoi(split[0]);
+// 			if (split[1])
+// 				row[j].color = hex_to_color(split[1]);
+// 			else
+// 				row[j].color = color_based_on_height(row[j].z, map);
+// 			while (line[i] && line[i] != ' ')
+// 				i++;
+// 		}
+// 		else
+// 			i++;
+// 	}
+// 	return (1);
+// }
 
 t_map	*save_map(const char *filename)
 {

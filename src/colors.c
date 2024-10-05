@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:36:28 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/02 10:44:20 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:31:52 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,29 @@ t_color	color_based_on_height(double z, t_map *map)
 	double		ratio;
 
 	ratio = (z - map->min_z) / (map->max_z - map->min_z);
-	
+	printf("Z: %f, Min_z: %f, Max_z: %f, Ratio: %f\n", z, map->min_z, map->max_z, ratio);
+
 	//Base colors set here
-	color.r = (int)(255 * ratio);
-	color.g = (int)(255 * (1 - ratio));
-	color.b = 0;
+	color.r = (int)(50 * (1 - ratio) + 255 * ratio);   // Punainen menee 0 -> 255
+	color.g = (int)(0 * (1 - ratio) + 100 * ratio);   // Vihreä menee 0 -> 255
+	color.b = (int)(255 * (1 - ratio) + 255 * ratio);
 	color.a = 255;
+	return (color);
+}
+
+t_color	hex_to_color(char *hex_str)
+{
+	t_color	color;
+	uint32_t hex_value;
+
+	// Muunna heksadesimaalinen arvo
+	hex_value = ft_atoi_base(hex_str + 2, "0123456789abcdef");
+
+	// Erota värit t_color-muotoon
+	color.r = (hex_value >> 16) & 0xFF;
+	color.g = (hex_value >> 8) & 0xFF;
+	color.b = hex_value & 0xFF;
+	color.a = 255;
+
 	return (color);
 }

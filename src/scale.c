@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:20:20 by djelacik          #+#    #+#             */
-/*   Updated: 2024/09/29 17:51:28 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:46:40 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	find_max_min_z(t_map *map)
 		while (x < map->width)
 		{
 			if (map->map[y][x] > map->max_z)
-				map->max_z = map->map[y][x];
+				map->max_z = (float)map->map[y][x];
 			if (map->map[y][x] < map->min_z)
-				map->min_z = map->map[y][x];
+				map->min_z = (float)map->map[y][x];
 			x++;
 		}
 		y++;
 	}
-	map->z_scale = (double)(ft_max(abs(map->max_z), abs(map->min_z)));
+	map->z_scale = (double)(ft_max(fabs(map->max_z), fabs(map->min_z)));
+	map->max_z /= map->z_scale;
+	map->min_z /= map->z_scale;
 }
 
 void	save_map_size(t_map *map)

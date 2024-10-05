@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/02 10:42:47 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:22:36 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct s_map
 	int			**map;
 	int			width;
 	int			height;
-	int			max_z;
-	int			min_z;
+	float		max_z;
+	float		min_z;
 	double		z_scale;
 	double		size_scale;
 	int			max_map_size;
