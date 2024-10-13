@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/05 17:22:36 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:02:12 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_point
 	double			y;
 	double			z;
 	t_color			color;
+	int				has_color;
 }	t_point;
 
 typedef struct	s_points
@@ -64,7 +65,7 @@ typedef struct	s_points
 
 typedef struct s_map
 {
-	int			**map;
+	t_point		**map;
 	int			width;
 	int			height;
 	float		max_z;
@@ -73,6 +74,9 @@ typedef struct s_map
 	double		size_scale;
 	int			max_map_size;
 	int			min_map_size;
+	int			has_any_color;
+	double		x_offset;
+	double		y_offset;
 }	t_map;
 
 
@@ -87,11 +91,15 @@ void		init_points(t_points *points, t_point start, t_point end, t_map *map);
 void		draw_line(mlx_image_t *img, t_points points, t_map *map);
 uint32_t	get_color(t_color start_color, t_color end_color, int i, double x);
 t_color		color_based_on_height(double z, t_map *map);
+t_color		hex_to_color(char *hex_str);
+void 		apply_colors(t_map *map);
+int	fill_row(t_point *row, char *line, t_map *map);
 
 t_map		*save_map(const char *filename);
 void		find_max_min_z(t_map *map);
 void		save_map_size(t_map *map);
 void		draw_map(mlx_image_t *img, t_map *map);
 void		map_scale(t_map *map);
+
 
 #endif

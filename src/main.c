@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:02:07 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/05 17:19:06 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/13 20:55:22 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 //         {
 //             // Tulosta z-arvo ja lisää pilkku paitsi viimeisen arvon jälkeen
 //             if (x < map->width - 1)
-//                 printf("%d, ", map->map[y][x]);
+//                 printf("%.0f, ", map->map[y][x].z);
 //             else
-//                 printf("%d", map->map[y][x]);  // Viimeinen arvo rivillä ilman pilkkua
+//                 printf("%.0f", map->map[y][x].z);  // Viimeinen arvo rivillä ilman pilkkua
 //             x++;
 //         }
 //         printf("\n");  // Uusi rivi kartassa
@@ -35,9 +35,46 @@
 //     }
 // }
 
+static t_map	*initialize_map(char *filename)
+{
+	t_map	*map;
+
+	map = save_map(filename);
+	if (!map)
+	{
+		printf("Error saving the map\n");
+		return (NULL);
+	}
+	find_max_min_z(map);
+	save_map_size(map);
+	map_scale(map);
+	apply_colors(map);	
+	return (map);
+}
+
+static mlx_t	*initalize_mlx(mlx_image_t **img, const char *filename)
+{
+	mlx_t	*mlx;
+
+	mlx = mlx_init(WIDTH, HEIGHT, filename, true);
+	if (!mlx)
+	{
+		printf("Failed to initialize MLX\n");
+		return (NULL);
+	}
+	*img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!img)
+	{
+		printf("Failed to create image\n");
+		mlx_terminate(mlx);
+		return (NULL);
+	}
+	return (mlx);
+}
+
 int	main(int argc, char **argv)
 {
-	mlx_t	    *mlx;
+	mlx_t		*mlx;
     mlx_image_t *img;
 	t_map		*map;
 	
@@ -46,31 +83,12 @@ int	main(int argc, char **argv)
         printf("Usage: ./fdf <filename>\n");
         return (1);
     }	
-	map = save_map(argv[1]);
+	map = initialize_map(argv[1]);
 	if (!map)
 	{
-		printf("Error saving the map\n");
-		return (1);
-	}
-	find_max_min_z(map);
-	save_map_size(map);
-	map_scale(map);
-	
-	mlx = mlx_init(WIDTH, HEIGHT, "Test_window", true);
-	if (!mlx)
-	{
-		printf("Failed to initialize MLX\n");
 		return (EXIT_FAILURE);
 	}
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!img)
-	{
-		printf("Failed to create image\n");
-		mlx_terminate(mlx);
-		return (EXIT_FAILURE);
-	}
-	//printf("Map width: %d, height: %d\n", map->width, map->height);
-	//print_map(map);
+	mlx = initalize_mlx(&img, argv[1]);
 	draw_map(img, map);
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_key_hook(mlx, close_window, mlx);

@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:20:20 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/05 17:46:40 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:01:15 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ void	find_max_min_z(t_map *map)
 	int		x;
 	int		y;
 
-	map->max_z = map->map[0][0];
-	map->min_z = map->map[0][0];
+	map->max_z = map->map[0][0].z;
+	map->min_z = map->map[0][0].z;
 	y = 0;
 	while (y < map->height)
 	{
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->map[y][x] > map->max_z)
-				map->max_z = (float)map->map[y][x];
-			if (map->map[y][x] < map->min_z)
-				map->min_z = (float)map->map[y][x];
+			if (map->map[y][x].z > map->max_z)
+				map->max_z = (float)map->map[y][x].z;
+			if (map->map[y][x].z < map->min_z)
+				map->min_z = (float)map->map[y][x].z;
 			x++;
 		}
 		y++;
 	}
 	map->z_scale = (double)(ft_max(fabs(map->max_z), fabs(map->min_z)));
+	if (map->z_scale == 0)
+		map->z_scale = 1;
 	map->max_z /= map->z_scale;
 	map->min_z /= map->z_scale;
 }

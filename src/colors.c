@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:36:28 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/05 16:31:52 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:18:20 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_color	interpolate_color(t_color start_clr, t_color end_clr, double frac
 	result.r = (int)(start_clr.r + (end_clr.r - start_clr.r) * fraction);
 	result.g = (int)(start_clr.g + (end_clr.g - start_clr.g) * fraction);
 	result.b = (int)(start_clr.b + (end_clr.b - start_clr.b) * fraction);
-	result.a = (int)(start_clr.a + (end_clr.a - start_clr.a) * fraction);
+	result.a = 255;
 	return (result);
 }
 
@@ -44,7 +44,7 @@ t_color	color_based_on_height(double z, t_map *map)
 	double		ratio;
 
 	ratio = (z - map->min_z) / (map->max_z - map->min_z);
-	printf("Z: %f, Min_z: %f, Max_z: %f, Ratio: %f\n", z, map->min_z, map->max_z, ratio);
+	//printf("Z: %f, Min_z: %f, Max_z: %f, Ratio: %f\n", z, map->min_z, map->max_z, ratio);
 
 	//Base colors set here
 	color.r = (int)(50 * (1 - ratio) + 255 * ratio);   // Punainen menee 0 -> 255
@@ -56,17 +56,52 @@ t_color	color_based_on_height(double z, t_map *map)
 
 t_color	hex_to_color(char *hex_str)
 {
-	t_color	color;
-	uint32_t hex_value;
+	t_color		color;
+	uint32_t 	hex_value;
+	int			i;
 
-	// Muunna heksadesimaalinen arvo
-	hex_value = ft_atoi_base(hex_str + 2, "0123456789abcdef");
-
-	// Erota värit t_color-muotoon
+	if (hex_str[0] == '0' && (hex_str[1] == 'x' || hex_str[1] == 'X'))
+		hex_str += 2;
+	i = -1;
+	while (hex_str[i++])
+		hex_str[i] = ft_tolower(hex_str[i]);
+	hex_value = ft_atoi_base(hex_str, "0123456789abcdef");
+	
+	printf("Hex string: %s, Hex value: %u\n", hex_str, hex_value);
+	
 	color.r = (hex_value >> 16) & 0xFF;
 	color.g = (hex_value >> 8) & 0xFF;
 	color.b = hex_value & 0xFF;
 	color.a = 255;
 
 	return (color);
+}
+
+void apply_colors(t_map *map)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->has_any_color)
+			{
+				if (!map->map[y][x].has_color)
+				{
+					map->map[y][x].color.r = 255;
+					map->map[y][x].color.g = 255;
+					map->map[y][x].color.b = 255;
+					map->map[y][x].color.a = 255;
+				}
+			}
+			else
+				map->map[y][x].color = color_based_on_height(map->map[y][x].z, map);
+			x++;
+		}
+		y++;
+	}
 }
