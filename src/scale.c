@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:20:20 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/11 15:01:15 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:29:45 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,14 @@ void	find_max_min_z(t_map *map)
 		while (x < map->width)
 		{
 			if (map->map[y][x].z > map->max_z)
-				map->max_z = (float)map->map[y][x].z;
+				map->max_z = (double)map->map[y][x].z;
 			if (map->map[y][x].z < map->min_z)
-				map->min_z = (float)map->map[y][x].z;
+				map->min_z = (double)map->map[y][x].z;
 			x++;
 		}
 		y++;
 	}
-	map->z_scale = (double)(ft_max(fabs(map->max_z), fabs(map->min_z)));
-	if (map->z_scale == 0)
-		map->z_scale = 1;
-	map->max_z /= map->z_scale;
-	map->min_z /= map->z_scale;
+
 }
 
 void	save_map_size(t_map *map)
@@ -56,3 +52,11 @@ void	map_scale(t_map *map)
 	map->size_scale = HEIGHT * 0.9 / (smaller * sqrt(2) + (larger - smaller) / sqrt(2));
 }
 
+void	z_scale(t_map *map)
+{
+	map->z_scale = (double)(ft_max(fabs(map->max_z), fabs(map->min_z)));
+	if (map->z_scale == 0)
+		map->z_scale = 1;
+	map->max_z /= map->z_scale;
+	map->min_z /= map->z_scale;
+}

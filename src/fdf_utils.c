@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/08 20:36:42 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:43:43 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,27 @@ void	apply_isometrics(t_point *point)
 
 	prev_x = point->x;
 	prev_y = point->y;
-	point->x = (prev_x - prev_y) * cos(0.7);
-	point->y = (prev_x + prev_y) * sin(0.7) - point->z;
+	point->x = (prev_x - prev_y) * cos(ANGLE);
+	point->y = (prev_x + prev_y) * sin(ANGLE) - point->z;
 
+}
+
+void	multiply_z(t_map *map, double multiplier)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			map->map[y][x].z *= multiplier;
+			x++;
+		}
+		y++;
+	}
+	map->z_scale = 1;
+	//map->z_multiplier = 1;
 }

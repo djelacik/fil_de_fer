@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:36:28 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/08 20:18:20 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:37:18 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,10 @@ t_color	hex_to_color(char *hex_str)
 	while (hex_str[i++])
 		hex_str[i] = ft_tolower(hex_str[i]);
 	hex_value = ft_atoi_base(hex_str, "0123456789abcdef");
-	
-	printf("Hex string: %s, Hex value: %u\n", hex_str, hex_value);
-	
 	color.r = (hex_value >> 16) & 0xFF;
 	color.g = (hex_value >> 8) & 0xFF;
 	color.b = hex_value & 0xFF;
 	color.a = 255;
-
 	return (color);
 }
 

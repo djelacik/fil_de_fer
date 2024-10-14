@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/13 19:02:12 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:43:32 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 #define WIDTH 1200
 #define HEIGHT 800
+#define ANGLE 0.7
 //#define SCALE 400 / map->max_map_size
 
 typedef struct	s_draw
@@ -65,11 +66,12 @@ typedef struct	s_points
 
 typedef struct s_map
 {
+	mlx_image_t	*img;
 	t_point		**map;
 	int			width;
 	int			height;
-	float		max_z;
-	float		min_z;
+	double		max_z;
+	double		min_z;
 	double		z_scale;
 	double		size_scale;
 	int			max_map_size;
@@ -77,8 +79,14 @@ typedef struct s_map
 	int			has_any_color;
 	double		x_offset;
 	double		y_offset;
+	double		z_multiplier;
 }	t_map;
 
+typedef struct s_context
+{
+	mlx_t	*mlx;
+	t_map	*map;
+}	t_context;
 
 
 void		close_window(mlx_key_data_t keydata, void* param);
@@ -100,6 +108,11 @@ void		find_max_min_z(t_map *map);
 void		save_map_size(t_map *map);
 void		draw_map(mlx_image_t *img, t_map *map);
 void		map_scale(t_map *map);
+void		z_scale(t_map *map);
+void	multiply_z(t_map *map, double multiplier);
+
+t_map	*initialize_map(char *filename);
+mlx_t	*initalize_mlx(const char *filename);
 
 
 #endif

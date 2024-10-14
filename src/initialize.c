@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:15:48 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/13 17:47:45 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:21:36 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,39 @@ void	init_points(t_points *points, t_point start, t_point end, t_map *map)
 		points->e_color = map->map[ex][ey].color;
 	apply_isometrics(&points->start);
 	apply_isometrics(&points->end);
+	points->start.x += map->x_offset;
+	points->start.y += map->y_offset;
+	points->end.x += map->x_offset;
+	points->end.y += map->y_offset;
+}
+
+t_map	*initialize_map(char *filename)
+{
+	t_map	*map;
+
+	map = save_map(filename);
+	if (!map)
+	{
+		printf("Error saving the map\n");
+		return (NULL);
+	}
+	find_max_min_z(map);
+	z_scale(map);
+	save_map_size(map);
+	map_scale(map);
+	apply_colors(map);
+	return (map);
+}
+
+mlx_t	*initalize_mlx(const char *filename)
+{
+	mlx_t	*mlx;
+
+	mlx = mlx_init(WIDTH, HEIGHT, filename, true);
+	if (!mlx)
+	{
+		printf("Failed to initialize MLX\n");
+		return (NULL);
+	}
+	return (mlx);
 }
