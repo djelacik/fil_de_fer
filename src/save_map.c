@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 02:04:18 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/08 16:36:46 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:34:51 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	save_height_and_width(t_map *map, const char *filename)
 	close(fd);
 }
 
-static int	allocate_map(t_map *map)
+static int	allocate_map(mlx_t *mlx, t_map *map)
 {
 	int	i;
 
@@ -66,7 +66,7 @@ static int	allocate_map(t_map *map)
 		map->map[i] = (t_point *)malloc(sizeof(t_point) * map->width);
 		if (!map->map[i])
 		{
-			free_map_memory(map);
+			free_map_memory(mlx, map);
 			return (0);
 		}
 		i++;
@@ -74,13 +74,13 @@ static int	allocate_map(t_map *map)
 	return (1);
 }
 
-t_map	*save_map(const char *filename)
+t_map	*save_map(mlx_t *mlx, const char *filename)
 {
 	int		fd;
 	int		i;
 	char	*line;
 	t_map	*map;
-	
+
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
@@ -89,7 +89,7 @@ t_map	*save_map(const char *filename)
 	if (fd < 0)
 		return (NULL);
 	save_height_and_width(map, filename);
-	if (!allocate_map(map))
+	if (!allocate_map(mlx, map))
 		return (NULL);
 	i = 0;
 	line = get_next_line(fd);

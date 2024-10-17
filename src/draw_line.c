@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:04:23 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/12 16:58:39 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:37:35 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,13 @@ static void	scale_and_offset(t_map *map, t_points *points)
 	int		offset_x;
 	int		offset_y;
 
-	offset_x = WIDTH / 2 - (125 - (125 * map->min_map_size / map->max_map_size));
+	offset_x = WIDTH / 2 - (125 - (125 * map->min_map_size
+				/ map->max_map_size));
 	offset_y = HEIGHT / 10;
-	
-	
-
-	// printf("Before scaling: Start: (%f, %f), End: (%f, %f)\n",
-    //        points->start.x, points->start.y, points->end.x, points->end.y);
-
 	points->start.x = points->start.x * map->size_scale + offset_x;
 	points->start.y = points->start.y * map->size_scale + offset_y;
 	points->end.x = points->end.x * map->size_scale + offset_x;
 	points->end.y = points->end.y * map->size_scale + offset_y;
-
-	// printf("After scaling: Start: (%f, %f), End: (%f, %f)\n",
-	//        points->start.x, points->start.y, points->end.x, points->end.y);
 }
 
 static void	slope_less(mlx_image_t *img, t_points *pts, t_draw *draw)
@@ -40,7 +32,7 @@ static void	slope_less(mlx_image_t *img, t_points *pts, t_draw *draw)
 	double		x;
 	double		y;
 	uint32_t	color;
-	
+
 	p = 2 * abs(draw->dy) - (draw->dx);
 	draw->i = 0;
 	x = pts->start.x;
@@ -63,11 +55,11 @@ static void	slope_less(mlx_image_t *img, t_points *pts, t_draw *draw)
 
 static void	slope_more(mlx_image_t *img, t_points *pts, t_draw *draw)
 {
-	int		p;
-	double	x;
-	double	y;
+	int			p;
+	double		x;
+	double		y;
 	uint32_t	color;
-	
+
 	p = 2 * abs(draw->dx) - (draw->dy);
 	draw->i = 0;
 	x = pts->start.x;
@@ -91,12 +83,9 @@ static void	slope_more(mlx_image_t *img, t_points *pts, t_draw *draw)
 void	draw_line(mlx_image_t *img, t_points points, t_map *map)
 {
 	t_draw	draw;
-	
 
 	scale_and_offset(map, &points);
 	initialize_draw(&draw, &points);
-	
-
 	if (abs(draw.dx) > abs(draw.dy))
 		slope_less(img, &points, &draw);
 	else

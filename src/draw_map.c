@@ -6,18 +6,34 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:49:21 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/02 10:43:34 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:35:08 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	redraw(mlx_t *mlx, t_map *map)
+{
+	if (map->img)
+	{
+		mlx_delete_image(mlx, map->img);
+		map->img = NULL;
+	}
+	map->img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!map->img)
+	{
+		return ;
+	}
+	draw_map(map->img, map);
+	mlx_image_to_window(mlx, map->img, 0, 0);
+}
 
 static void	draw_horizontal_line(mlx_image_t *img, int x, int y, t_map *map)
 {
 	t_points	points;
 	t_point		start;
 	t_point		end;
-	
+
 	start.x = x;
 	start.y = y;
 	end.x = x + 1;
@@ -31,7 +47,7 @@ static void	draw_vertical_line(mlx_image_t *img, int x, int y, t_map *map)
 	t_points	points;
 	t_point		start;
 	t_point		end;
-	
+
 	start.x = x;
 	start.y = y;
 	end.x = x;

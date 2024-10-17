@@ -6,13 +6,13 @@
 #    By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 19:04:37 by djelacik          #+#    #+#              #
-#    Updated: 2024/10/08 15:11:50 by djelacik         ###   ########.fr        #
+#    Updated: 2024/10/16 11:13:23 by djelacik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -I./MLX42/include -I./libft -I./get_next_line 
+CFLAGS = -Wall -Wextra -Werror -g -O2 -I./MLX42/include -I./libft -I./get_next_line 
 LDFLAGS = -L./MLX42 -lmlx42 -ldl -lglfw -pthread -lm -L./libft -lft
 
 SRC = \
@@ -24,6 +24,8 @@ src/save_map.c \
 src/draw_map.c \
 src/scale.c \
 src/colors.c \
+src/hooks.c \
+src/free.c \
 src/save_row.c \
 get_next_line/get_next_line.c \
 get_next_line/get_next_line_utils.c

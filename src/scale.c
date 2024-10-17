@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:20:20 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/14 16:29:45 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:38:22 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	find_max_min_z(t_map *map)
 		}
 		y++;
 	}
-
 }
 
 void	save_map_size(t_map *map)
@@ -49,7 +48,8 @@ void	map_scale(t_map *map)
 
 	smaller = ft_min(map->height, map->width);
 	larger = ft_max(map->height, map->width);
-	map->size_scale = HEIGHT * 0.9 / (smaller * sqrt(2) + (larger - smaller) / sqrt(2));
+	map->size_scale = HEIGHT * 0.9 / (smaller * sqrt(2)
+			+ (larger - smaller) / sqrt(2));
 }
 
 void	z_scale(t_map *map)
