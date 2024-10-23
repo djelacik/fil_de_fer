@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:15:48 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/16 12:13:13 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:24:51 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	initialize_draw(t_draw *draw, t_points *points)
 		draw->err = -draw->dy / 2;
 }
 
-t_map	*initialize_map(mlx_t *mlx, char *filename)
+t_map	*initialize_map(char *filename)
 {
 	t_map	*map;
 
-	map = save_map(mlx, filename);
+	map = save_map(filename);
 	if (!map)
 	{
 		ft_putstr_fd("Error saving the map\n", STDERR_FILENO);

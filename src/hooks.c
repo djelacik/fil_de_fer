@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:56:16 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/16 16:56:25 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:37:58 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	handle_rotation(mlx_t *mlx, t_map *map)
 {
 	double	rotation_speed;
 
-	rotation_speed = 0.01;
+	rotation_speed = 0.02;
 	if (mlx_is_key_down(mlx, MLX_KEY_Q))
 		map->rotation_x += rotation_speed;
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
@@ -51,13 +51,13 @@ static void	handle_rotation(mlx_t *mlx, t_map *map)
 static void	handle_movement(mlx_t *mlx, t_map *map)
 {
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		map->y_offset -= 0.05;
+		map->y_offset -= 0.1;
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		map->y_offset += 0.05;
+		map->y_offset += 0.1;
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		map->x_offset -= 0.05;
+		map->x_offset -= 0.1;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		map->x_offset += 0.05;
+		map->x_offset += 0.1;
 }
 
 static void	handle_scaling(mlx_t *mlx, t_map *map)

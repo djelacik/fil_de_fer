@@ -6,13 +6,13 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:06:56 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/16 12:00:51 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:54:05 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	free_map_memory(mlx_t *mlx, t_map *map)
+void	free_map_memory(t_map *map)
 {
 	int	i;
 
@@ -28,17 +28,13 @@ void	free_map_memory(mlx_t *mlx, t_map *map)
 		}
 		free(map->map);
 	}
-	if (map->img)
-		mlx_delete_image(mlx, map->img);
 	free(map);
 }
 
-int	error_exit(mlx_t *mlx, t_map *map, char *message)
+int	error_exit(t_map *map, char *message)
 {
 	ft_putstr_fd(message, STDERR_FILENO);
 	if (map)
-		free_map_memory(mlx, map);
-	if (mlx)
-		mlx_terminate(mlx);
+		free_map_memory(map);
 	return (EXIT_FAILURE);
 }

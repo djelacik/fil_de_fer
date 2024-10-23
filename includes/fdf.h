@@ -6,12 +6,21 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/17 19:49:13 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:27:37 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+
+
+
+#include <stdio.h>
+
+
+
+
 
 # include <MLX42/MLX42.h>
 # include <fcntl.h>
@@ -22,8 +31,9 @@
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 
-# define WIDTH 1200
-# define HEIGHT 800
+//Change WIDTH & HEIGHT according to our screen
+# define WIDTH 3840
+# define HEIGHT 2160
 # define ANGLE 0.7
 # define ERROR_MSG "Error\n"
 # define FORMAT_ERR "Bruh...\n"
@@ -97,9 +107,9 @@ typedef struct s_context
 }	t_context;
 
 void		close_window(mlx_key_data_t keydata, void *param);
-void		free_map_memory(mlx_t *mlx, t_map *map);
+void		free_map_memory(t_map *map);
 void		apply_isometrics(t_point *point, t_map *map);
-int			error_exit(mlx_t *mlx, t_map *map, char *message);
+int			error_exit(t_map *map, char *message);
 
 void		initialize_draw(t_draw *draw, t_points *points);
 void		init_points(t_points *points, t_point start,
@@ -121,8 +131,8 @@ void		map_scale(t_map *map);
 void		z_scale(t_map *map);
 void		multiply_z(t_map *map, double multiplier);
 
-t_map		*save_map(mlx_t *mlx, const char *filename);
-t_map		*initialize_map(mlx_t *mlx, char *filename);
+t_map		*save_map(const char *filename);
+t_map		*initialize_map(char *filename);
 mlx_t		*initalize_mlx(const char *filename);
 
 void		loop_hook(void *param);
