@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 15:46:38 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/05 15:47:04 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:51:36 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ int	check_errors(char *str, char *base)
 	int	start;
 
 	start = 0;
-	while (str[start] != '\0' && (str[start] == ' ' || str[start] == '\t' ||
-		str[start] == '\r' || str[start] == '\n' || str[start] == '\v' ||
-		str[start] == '\f'))
+	while (str[start] != '\0' && (str[start] == ' ' || str[start] == '\t'
+			|| str[start] == '\r' || str[start] == '\n' || str[start] == '\v'
+			|| str[start] == '\f'))
 		start++;
 	i = start;
 	while (str[i])
 	{
 		j = 0;
-		while (base[j] && (str[i] != base[j] ||
-				(str[i] == '-' || str[i] == '+')))
+		while (base[j] && (str[i] != base[j]
+				|| (str[i] == '-' || str[i] == '+')))
 			++j;
 		if (str[i] != base[j] && str[i] != '-' && str[i] != '+')
 			return (0);
@@ -79,7 +79,8 @@ int	ft_atoi_base(char *str, char *base)
 	int	negative;
 	int	base_length;
 
-	if (!(base_length = get_base_length(base)) || !check_errors(str, base))
+	base_length = get_base_length(base);
+	if (!(base_length || !check_errors(str, base)))
 		return (0);
 	s = 0;
 	while (str[s] != '\0' && (str[s] == ' ' || str[s] == '\t' || str[s] == '\r'
@@ -88,8 +89,8 @@ int	ft_atoi_base(char *str, char *base)
 	i = s - 1;
 	res = 0;
 	negative = 1;
-	while (str[++i] && (((str[i] == '-' || str[i] == '+') && i == s) ||
-			(str[i] != '-' && str[i] != '+')))
+	while (str[++i] && (((str[i] == '-' || str[i] == '+') && i == s)
+			|| (str[i] != '-' && str[i] != '+')))
 	{
 		if (str[i] == '-')
 			negative = -1;

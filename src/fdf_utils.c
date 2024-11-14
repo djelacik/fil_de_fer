@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:21:44 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/16 12:11:04 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:28:02 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,14 @@ int	check_name(char *filename)
 {
 	int		len;
 	int		i;
+	int		fd;	
 
+	fd = open(filename, __O_DIRECTORY);
+	if (fd >= 0)
+		return (0);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (0);
 	len = 0;
 	while (filename[len])
 		len++;

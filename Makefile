@@ -1,7 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/23 11:20:49 by djelacik          #+#    #+#              #
+#    Updated: 2024/11/01 15:46:14 by djelacik         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = fdf
+LIBMLX = ./MLX42
+MLX_42 = $(LIBMLX)/build/libmlx42.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -O2 -fPIE -I./MLX42/include -I./libft -I./get_next_line -I./include
-LDFLAGS = -L./MLX42/build -lmlx42 -lglfw -pthread -lm -L./libft -lft -pie
+CFLAGS = -Wall -Wextra -Werror -g -O2 -fPIE -I$(LIBMLX)/include -I./libft -I./get_next_line -I./include
+LDFLAGS = -L$(LIBMLX)/build -lmlx42 -lglfw -pthread -lm -L./libft -lft -pie
 
 SRC = \
 src/draw_line.c \
@@ -24,27 +38,36 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 # Compile the project and link it with libft and MLX42
-$(NAME): $(OBJ) libft/libft.a MLX42/build/libmlx42.a
+$(NAME): $(OBJ) libft/libft.a $(MLX_42)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 # Compile libft library with -fPIE
 libft/libft.a:
 	@make CFLAGS="-Wall -Wextra -Werror -fPIE" -C libft
 
-# Build the MLX42 library for Linux
-MLX42/build/libmlx42.a:
-	cmake ./MLX42 -B ./MLX42/build
-	make -C ./MLX42/build -j4
+# Clone MLX42 if it does not exist
+mlx_clone: 
+	@if [ ! -d "$(LIBMLX)" ]; then \
+		echo "Cloning MLX42..."; \
+		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
+	fi
+
+# Build the MLX42 library only if it hasn't been built yet
+$(MLX_42): mlx_clone
+	@if [ ! -f "$(MLX_42)" ]; then \
+		echo "Building MLX42..."; \
+		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
+	fi
 
 # Compile object files from source
-%.o: %.c
+%.o: %.c $(MLX_42)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 # Clean object files
 clean:
 	rm -f $(OBJ)
 	@make clean -C libft
-	rm -rf ./MLX42/build
+	rm -rf $(LIBMLX)/build
 
 # Full clean (removes executable and object files)
 fclean: clean
@@ -57,7 +80,4 @@ re: fclean all
 # Bonus target to compile the bonus version without relinking
 bonus: $(NAME)
 
-#$(NAME): $(OBJ) libft/libft.a MLX42/build/libmlx42.a
-#$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus mlx_clone

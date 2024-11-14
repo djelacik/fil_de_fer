@@ -6,7 +6,7 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 02:04:18 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/18 15:24:06 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:50:55 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	get_width(char *line)
 	int		width;
 	int		i;
 
+	if (!line)
+		return (0);
 	width = 0;
 	i = 0;
 	while (line[i])
@@ -74,6 +76,26 @@ static int	allocate_map(t_map *map)
 	return (1);
 }
 
+static t_map	*init_map(const char *filename)
+{
+	t_map	*map;
+
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		return (NULL);
+	ft_bzero(map, sizeof(t_map));
+	save_height_and_width(map, filename);
+	if (!map->height && !map->width)
+	{
+		free(map->map);
+		free(map);
+		return (NULL);
+	}
+	if (!allocate_map(map))
+		return (NULL);
+	return (map);
+}
+
 t_map	*save_map(const char *filename)
 {
 	int		fd;
@@ -81,16 +103,10 @@ t_map	*save_map(const char *filename)
 	char	*line;
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = init_map(filename);
 	if (!map)
 		return (NULL);
-	ft_bzero(map, sizeof(t_map));
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	save_height_and_width(map, filename);
-	if (!allocate_map(map))
-		return (NULL);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)

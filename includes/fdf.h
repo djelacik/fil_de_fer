@@ -6,21 +6,12 @@
 /*   By: djelacik <djelacik@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:12:50 by djelacik          #+#    #+#             */
-/*   Updated: 2024/10/18 15:27:37 by djelacik         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:57:59 by djelacik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
-
-
-
-#include <stdio.h>
-
-
-
-
 
 # include <MLX42/MLX42.h>
 # include <fcntl.h>
